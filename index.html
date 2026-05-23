@@ -1,0 +1,857 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover" />
+<meta name="apple-mobile-web-app-capable" content="yes" />
+<meta name="apple-mobile-web-app-title" content="Piscine Control" />
+<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent" />
+<title>Piscine Control — V3 Produits</title>
+
+<style>
+:root{
+  --bg1:#f4fcff;
+  --bg2:#e6f7fb;
+  --ink:#102a43;
+  --muted:#6b7f91;
+  --blue:#0ea5e9;
+  --cyan:#22d3ee;
+  --deep:#075985;
+  --green:#16a34a;
+  --orange:#f59e0b;
+  --red:#dc2626;
+  --card:rgba(255,255,255,.88);
+  --line:#d5edf6;
+  --shadow:0 18px 42px rgba(7,89,133,.15);
+}
+*{box-sizing:border-box}
+html,body{margin:0}
+body{
+  min-height:100vh;
+  font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,Arial,sans-serif;
+  color:var(--ink);
+  background:
+    radial-gradient(circle at 10% -10%, rgba(34,211,238,.40), transparent 35%),
+    radial-gradient(circle at 90% 8%, rgba(14,165,233,.26), transparent 30%),
+    linear-gradient(180deg,var(--bg1),var(--bg2));
+}
+.app{
+  width:min(444px,100%);
+  margin:0 auto;
+  padding:16px 14px 96px;
+}
+.hero{
+  border-radius:34px;
+  padding:22px;
+  color:#fff;
+  background:
+    linear-gradient(145deg,rgba(14,165,233,.98),rgba(34,211,238,.78)),
+    radial-gradient(circle at 82% 18%,rgba(255,255,255,.45),transparent 25%);
+  box-shadow:var(--shadow);
+  position:relative;
+  overflow:hidden;
+}
+.hero:before{
+  content:"";
+  position:absolute;
+  width:190px;height:190px;
+  border-radius:50%;
+  right:-74px;bottom:-78px;
+  background:rgba(255,255,255,.16);
+}
+.hero-top{
+  display:flex;justify-content:space-between;align-items:flex-start;gap:12px;position:relative;z-index:1;
+}
+h1{font-size:30px;line-height:1;margin:0;letter-spacing:-.9px}
+.hero p{margin:7px 0 0;font-size:14px;opacity:.92}
+.badge{
+  white-space:nowrap;
+  padding:8px 10px;
+  border-radius:999px;
+  border:1px solid rgba(255,255,255,.34);
+  background:rgba(255,255,255,.18);
+  font-size:12px;
+  font-weight:850;
+}
+.global{
+  position:relative;z-index:1;
+  margin-top:20px;
+  display:grid;
+  grid-template-columns:1fr 74px;
+  gap:14px;
+  align-items:center;
+}
+.global strong{display:block;font-size:23px;letter-spacing:-.45px}
+.global span{display:block;font-size:13px;line-height:1.35;opacity:.93;margin-top:5px}
+.drop{
+  width:74px;height:74px;border-radius:28px;
+  background:rgba(255,255,255,.22);
+  border:1px solid rgba(255,255,255,.30);
+  display:flex;align-items:center;justify-content:center;
+  font-size:34px;
+  backdrop-filter:blur(10px);
+}
+.section{margin-top:20px}
+.title{
+  display:flex;justify-content:space-between;align-items:center;
+  padding:0 4px;margin-bottom:10px;
+}
+.title h2{font-size:18px;margin:0;letter-spacing:-.3px}
+.title small{color:var(--muted);font-weight:850}
+.card{
+  background:var(--card);
+  border:1px solid rgba(255,255,255,.94);
+  border-radius:26px;
+  padding:15px;
+  box-shadow:0 12px 28px rgba(7,89,133,.08);
+  backdrop-filter:blur(16px);
+}
+.grid{display:grid;grid-template-columns:1fr 1fr;gap:11px}
+.metric .k{
+  font-size:11px;text-transform:uppercase;letter-spacing:.06em;
+  color:var(--muted);font-weight:900;
+}
+.metric .v{font-size:25px;font-weight:950;letter-spacing:-.7px;margin-top:7px}
+.metric .n{font-size:12px;color:var(--muted);line-height:1.25;margin-top:4px}
+.form{display:grid;grid-template-columns:1fr 1fr;gap:10px}
+.full{grid-column:1/-1}
+label{
+  font-size:12px;color:var(--muted);font-weight:900;
+  display:block;margin:0 0 5px 2px;
+}
+input,select,textarea{
+  width:100%;
+  border:1px solid var(--line);
+  background:#fff;
+  color:var(--ink);
+  border-radius:17px;
+  padding:12px;
+  font-size:16px;
+  outline:none;
+}
+textarea{min-height:70px;resize:vertical}
+button{font-family:inherit}
+.btn{
+  width:100%;
+  border:0;border-radius:19px;
+  padding:15px 16px;color:white;
+  font-size:16px;font-weight:950;
+  background:linear-gradient(135deg,var(--blue),var(--cyan));
+  box-shadow:0 12px 26px rgba(14,165,233,.26);
+}
+.btn.secondary{
+  color:var(--deep);
+  background:#fff;
+  border:1px solid var(--line);
+  box-shadow:none;
+}
+.analysis{display:flex;flex-direction:column;gap:12px}
+.alert{
+  border-radius:24px;
+  padding:15px;
+  border:1px solid var(--line);
+  background:#fff;
+}
+.alert.green{border-color:#bbf7d0;background:#f0fdf4}
+.alert.orange{border-color:#fed7aa;background:#fff7ed}
+.alert.red{border-color:#fecaca;background:#fff1f2}
+.alert.blue{border-color:#bae6fd;background:#f0f9ff}
+.alert h3{margin:0 0 8px;font-size:17px;letter-spacing:-.25px}
+.alert p{margin:5px 0;color:#334e68;line-height:1.36;font-size:14px}
+.alert b{color:var(--ink)}
+.tagline{display:flex;flex-wrap:wrap;gap:7px;margin-top:10px}
+.tag{
+  display:inline-flex;align-items:center;
+  border-radius:999px;
+  padding:6px 9px;
+  font-size:11px;
+  font-weight:900;
+  background:#e0f7ff;
+  color:var(--deep);
+}
+.tag.red{background:#fee2e2;color:#991b1b}
+.tag.orange{background:#ffedd5;color:#9a3412}
+.tag.green{background:#dcfce7;color:#166534}
+.steps{display:flex;flex-direction:column;gap:10px}
+.step{
+  display:grid;
+  grid-template-columns:34px 1fr auto;
+  gap:10px;align-items:center;
+  padding:12px;border-radius:20px;
+  background:#f8fdff;border:1px solid var(--line);
+}
+.num{
+  width:34px;height:34px;border-radius:50%;
+  display:flex;align-items:center;justify-content:center;
+  background:#e0f7ff;color:var(--deep);font-weight:950;
+}
+.step b{font-size:14px;display:block}
+.step span{font-size:12px;color:var(--muted);display:block;margin-top:2px}
+.status-pill{
+  border-radius:999px;padding:6px 8px;font-size:11px;font-weight:950;
+  background:#dcfce7;color:#166534;
+}
+.status-pill.wait{background:#ffedd5;color:#9a3412}
+.status-pill.lock{background:#fee2e2;color:#991b1b}
+.info{font-size:13px;color:var(--muted);line-height:1.42}
+.nav{
+  position:fixed;left:50%;bottom:14px;transform:translateX(-50%);
+  width:min(444px,calc(100% - 22px));
+  display:grid;grid-template-columns:repeat(5,1fr);
+  gap:4px;padding:8px;border-radius:26px;
+  background:rgba(255,255,255,.94);
+  border:1px solid rgba(214,238,246,.94);
+  box-shadow:0 18px 40px rgba(7,89,133,.17);
+  backdrop-filter:blur(18px);
+  z-index:4;
+}
+.nav button{
+  border:0;background:transparent;border-radius:18px;
+  padding:8px 4px;color:var(--muted);
+  font-size:10.5px;font-weight:900;
+}
+.nav button.active{background:#e0f7ff;color:var(--deep)}
+.nav span{display:block;font-size:20px;margin-bottom:2px}
+.hidden{display:none!important}
+.screen{animation:fade .22s ease}
+@keyframes fade{from{opacity:.4;transform:translateY(5px)}to{opacity:1;transform:translateY(0)}}
+.small{font-size:12px;color:var(--muted);line-height:1.35}
+hr{border:0;border-top:1px solid var(--line);margin:12px 0}
+.product-table{
+  width:100%;
+  border-collapse:separate;
+  border-spacing:0 8px;
+  font-size:12px;
+}
+.product-table td{
+  background:#fff;
+  border-top:1px solid var(--line);
+  border-bottom:1px solid var(--line);
+  padding:9px;
+  vertical-align:top;
+}
+.product-table td:first-child{
+  border-left:1px solid var(--line);
+  border-radius:14px 0 0 14px;
+  font-weight:900;
+}
+.product-table td:last-child{
+  border-right:1px solid var(--line);
+  border-radius:0 14px 14px 0;
+  color:#334e68;
+}
+</style>
+</head>
+
+<body>
+<div class="app">
+
+<header class="hero">
+  <div class="hero-top">
+    <div>
+      <h1>Piscine Control</h1>
+      <p>Nice Ouest · débordement · 44 m³ · filtre à verre</p>
+    </div>
+    <div class="badge">V3 produits</div>
+  </div>
+
+  <div class="global">
+    <div>
+      <strong id="headline">Analyse prête</strong>
+      <span id="headlineSub">Entrez les mesures PoolLab, choisissez le produit, puis l’application calcule une dose adaptée aux 44 m³.</span>
+    </div>
+    <div class="drop">💧</div>
+  </div>
+</header>
+
+<main>
+
+<section id="dashboard" class="screen">
+  <div class="section">
+    <div class="title"><h2>Tableau de bord</h2><small>Dernière mesure</small></div>
+    <div class="grid">
+      <div class="card metric"><div class="k">pH</div><div class="v" id="dashPh">—</div><div class="n">Cible 7,2-7,4</div></div>
+      <div class="card metric"><div class="k">Chlore libre</div><div class="v" id="dashChlore">—</div><div class="n">Cible 1-3 mg/L</div></div>
+      <div class="card metric"><div class="k">TAC</div><div class="v" id="dashTac">—</div><div class="n">Cible 80-120 mg/L</div></div>
+      <div class="card metric"><div class="k">Stabilisant</div><div class="v" id="dashCya">—</div><div class="n">Cible 30-50 mg/L</div></div>
+      <div class="card metric"><div class="k">TH</div><div class="v" id="dashTh">—</div><div class="n">Surveillance calcaire</div></div>
+      <div class="card metric"><div class="k">Eau</div><div class="v" id="dashTemp">—</div><div class="n">Filtration selon chaleur</div></div>
+    </div>
+  </div>
+
+  <div class="section">
+    <div class="title"><h2>Priorité actuelle</h2><small>Décision</small></div>
+    <div id="mainPriority" class="alert blue">
+      <h3>Pas encore d’analyse</h3>
+      <p>Allez dans <b>Mesures</b>, entrez les valeurs, choisissez le produit éventuel, puis lancez l’analyse.</p>
+    </div>
+  </div>
+
+  <div class="section">
+    <div class="title"><h2>Ordre de correction</h2><small>Protocole</small></div>
+    <div class="steps" id="orderSteps">
+      <div class="step"><div class="num">1</div><div><b>Bac tampon & circulation</b><span>Pompes, débordement, filtre à verre</span></div><div class="status-pill wait">À vérifier</div></div>
+      <div class="step"><div class="num">2</div><div><b>TAC</b><span>Le pH dépend de sa stabilité</span></div><div class="status-pill wait">À vérifier</div></div>
+      <div class="step"><div class="num">3</div><div><b>pH</b><span>Régulation automatique si pompe active</span></div><div class="status-pill wait">À vérifier</div></div>
+      <div class="step"><div class="num">4</div><div><b>Chlore</b><span>Interprété seulement après pH correct</span></div><div class="status-pill lock">Bloqué</div></div>
+      <div class="step"><div class="num">5</div><div><b>TH / anti-calcaire</b><span>Selon dureté, appoints et chaleur</span></div><div class="status-pill wait">Surveiller</div></div>
+    </div>
+  </div>
+</section>
+
+<section id="measures" class="screen hidden">
+  <div class="section">
+    <div class="title"><h2>Mesures PoolLab</h2><small>Saisie</small></div>
+    <div class="card">
+      <div class="form">
+        <div><label>TAC mg/L</label><input id="tac" type="number" value="95" step="1" /></div>
+        <div><label>pH</label><input id="ph" type="number" value="7.3" step="0.1" /></div>
+        <div><label>Chlore libre mg/L</label><input id="chlore" type="number" value="1.8" step="0.1" /></div>
+        <div><label>Stabilisant CYA mg/L</label><input id="cya" type="number" value="35" step="1" /></div>
+        <div><label>TH / dureté</label><input id="th" type="number" value="32" step="1" /></div>
+        <div><label>Température eau °C</label><input id="tempEau" type="number" value="28" step="0.1" /></div>
+        <div><label>Température ext. °C</label><input id="tempExt" type="number" value="31" step="0.1" /></div>
+        <div><label>Couverture hier ?</label><select id="cover"><option>Non</option><option>Oui</option><option>Partielle</option></select></div>
+        <div><label>Bac tampon</label><select id="bac"><option>OK</option><option>Bas</option><option>Haut</option></select></div>
+        <div><label>Pompes</label><select id="pumps"><option>1 pompe</option><option>2 pompes</option><option>Arrêt</option></select></div>
+        <div><label>Régulation pH auto</label><select id="phAuto"><option>Active</option><option>Inactive</option><option>Bidon vide</option><option>Sonde à vérifier</option></select></div>
+        <div><label>Aspect eau</label><select id="aspect"><option>Claire</option><option>Trouble</option><option>Verte</option><option>Dépôts</option></select></div>
+      </div>
+    </div>
+  </div>
+
+  <div class="section">
+    <div class="title"><h2>Produit</h2><small>Base intégrée</small></div>
+    <div class="card">
+      <div class="form">
+        <div class="full">
+          <label>Produit choisi</label>
+          <select id="product">
+            <option value="auto">Automatique selon analyse</option>
+            <option value="acti_ph_plus_poudre">ACTI pH Plus poudre</option>
+            <option value="acti_ph_minus_poudre">ACTI pH Minus poudre</option>
+            <option value="acti_ph_minus_liquide35">ACTI pH Minus liquide 35</option>
+            <option value="bayrol_ph_minus_poudre">BAYROL pH-Minus poudre</option>
+            <option value="bayrol_ph_minus_liquide_domestic">BAYROL pH-Minus liquide Domestic Anti Calc</option>
+            <option value="acti_chlore_lent_galet">ACTI chlore lent galet 200/250 g</option>
+            <option value="acti_chlore_choc_granules">ACTI chlore choc / HP granulés</option>
+            <option value="acti_anticalcaire">ACTI anti-calcaire piscine</option>
+            <option value="acti_floc_chaussette">ACTI floculant chaussette</option>
+            <option value="acti_floc_liquide">ACTI floculant liquide ponctuel</option>
+            <option value="unknown">Autre produit / étiquette à renseigner</option>
+          </select>
+        </div>
+        <div>
+          <label>Objectif pH</label>
+          <select id="phStep">
+            <option value="0.1">Correction 0,1</option>
+            <option value="0.2" selected>Correction 0,2</option>
+            <option value="0.3">Correction 0,3</option>
+          </select>
+        </div>
+        <div>
+          <label>Utilisation</label>
+          <select id="mode">
+            <option>Entretien courant</option>
+            <option>Sortie hivernage</option>
+            <option>Eau trouble</option>
+            <option>Eau verte</option>
+            <option>Après forte baignade</option>
+          </select>
+        </div>
+        <div class="full">
+          <label>Note étiquette / précision</label>
+          <textarea id="labelNote" placeholder="Ex : photo ou texte de l’étiquette si produit non listé..."></textarea>
+        </div>
+        <div class="full">
+          <button class="btn" onclick="analysePiscine()">Analyser et calculer</button>
+        </div>
+      </div>
+      <p class="small" style="margin-bottom:0">Les dosages intégrés sont des bases indicatives. L’étiquette du produit reste prioritaire, surtout si la concentration change.</p>
+    </div>
+  </div>
+</section>
+
+<section id="analysis" class="screen hidden">
+  <div class="section">
+    <div class="title"><h2>Analyse</h2><small>Priorités</small></div>
+    <div id="analysisList" class="analysis">
+      <div class="alert blue">
+        <h3>Analyse non lancée</h3>
+        <p>Remplissez les mesures, puis appuyez sur <b>Analyser et calculer</b>.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section id="products" class="screen hidden">
+  <div class="section">
+    <div class="title"><h2>Base produits</h2><small>44 m³</small></div>
+    <div class="card">
+      <table class="product-table">
+        <tr><td>ACTI pH Plus poudre</td><td>≈ 660 g pour augmenter le pH de 0,2.</td></tr>
+        <tr><td>ACTI pH Minus poudre</td><td>≈ 660 g pour baisser le pH de 0,2.</td></tr>
+        <tr><td>ACTI pH Minus liquide 35</td><td>≈ 660 ml pour baisser le pH de 0,2.</td></tr>
+        <tr><td>BAYROL pH-Minus poudre</td><td>≈ 440 g pour -0,1 ; ≈ 880 g pour -0,2.</td></tr>
+        <tr><td>BAYROL pH-Minus liquide Domestic</td><td>≈ 1,32 L pour -0,1 ; ≈ 2,64 L pour -0,2.</td></tr>
+        <tr><td>ACTI chlore lent</td><td>≈ 2 galets pour 44 m³, à adapter aux mesures.</td></tr>
+        <tr><td>ACTI chlore choc</td><td>≈ 660 g en traitement choc / mise en service.</td></tr>
+        <tr><td>ACTI anti-calcaire</td><td>≈ 2,2 L pour 44 m³ selon TH et traces calcaires.</td></tr>
+        <tr><td>ACTI floculant chaussette</td><td>1 à 2 chaussettes, pH corrigé avant floculation.</td></tr>
+        <tr><td>ACTI floculant liquide</td><td>≈ 0,88 L pour 44 m³, uniquement ponctuel dans votre cas.</td></tr>
+      </table>
+      <p class="small">À confirmer avec vos étiquettes, notamment si le produit est Bayrol, Berol/B-Roll ou une autre gamme.</p>
+    </div>
+  </div>
+
+  <div class="section">
+    <div class="title"><h2>Mode d’emploi général</h2><small>Prudence</small></div>
+    <div class="card">
+      <div class="steps">
+        <div class="step"><div class="num">1</div><div><b>Filtration en marche</b><span>Ne jamais corriger sur eau immobile.</span></div><div class="status-pill wait">Obligatoire</div></div>
+        <div class="step"><div class="num">2</div><div><b>Éviter le bac tampon</b><span>Ne pas verser manuellement un produit concentré dans la zone d’aspiration, sauf notice spécifique.</span></div><div class="status-pill lock">Prudence</div></div>
+        <div class="step"><div class="num">3</div><div><b>Disperser progressivement</b><span>Devant les refoulements ou dans plusieurs zones du bassin selon la notice.</span></div><div class="status-pill wait">Progressif</div></div>
+        <div class="step"><div class="num">4</div><div><b>Ne pas mélanger</b><span>Jamais chlore + acide. Jamais deux produits ensemble.</span></div><div class="status-pill lock">Sécurité</div></div>
+        <div class="step"><div class="num">5</div><div><b>Attendre et mesurer</b><span>Attendre 2 à 4 h de filtration avant nouvelle décision.</span></div><div class="status-pill wait">Re-test</div></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section id="settings" class="screen hidden">
+  <div class="section">
+    <div class="title"><h2>Ma piscine</h2><small>Base calcul</small></div>
+    <div class="card info">
+      <b>Localisation :</b> Nice Ouest<br>
+      <b>Forme :</b> ovale<br>
+      <b>Dimensions :</b> 9 m × 3,50 m × 1,50 m<br>
+      <b>Volume bassin :</b> environ 42 m³<br>
+      <b>Bac tampon :</b> diamètre 1,20 m × profondeur 1,50 m ≈ 1,7 m³<br>
+      <b>Volume retenu :</b> 44 m³<br>
+      <b>Filtration :</b> filtre à verre<br>
+      <b>Hydraulique :</b> débordement + bonde de fond + 2 pompes possibles<br>
+      <b>Nettoyage :</b> robot + balai à l’égout
+    </div>
+  </div>
+
+  <div class="section">
+    <div class="title"><h2>Normes utilisées</h2><small>V3</small></div>
+    <div class="card info">
+      <b>TAC :</b> 80 à 120 mg/L<br>
+      <b>pH cible :</b> 7,2 à 7,4 ; acceptable 7,0 à 7,6<br>
+      <b>Chlore libre :</b> 1 à 3 mg/L, à interpréter avec le stabilisant<br>
+      <b>Stabilisant :</b> idéalement autour de 30 à 50 mg/L ; vigilance si trop haut<br>
+      <b>TH :</b> surveillance renforcée car eau de remplissage calcaire à Nice<br>
+      <b>Température :</b> vigilance à partir de 28-29 °C
+    </div>
+  </div>
+</section>
+
+</main>
+</div>
+
+<nav class="nav">
+  <button class="active" onclick="showTab('dashboard',this)"><span>⌂</span>Accueil</button>
+  <button onclick="showTab('measures',this)"><span>＋</span>Mesures</button>
+  <button onclick="showTab('analysis',this)"><span>▤</span>Analyse</button>
+  <button onclick="showTab('products',this)"><span>▣</span>Produits</button>
+  <button onclick="showTab('settings',this)"><span>☰</span>Fiche</button>
+</nav>
+
+<script>
+const VOLUME_M3 = 44;
+
+const PRODUCTS = {
+  auto: {
+    name:"Automatique selon analyse",
+    kind:"auto",
+    doseText:"Le produit sera choisi selon la priorité détectée.",
+    method:"Choisir le produit exact si une dose doit être calculée."
+  },
+  acti_ph_plus_poudre: {
+    name:"ACTI pH Plus poudre",
+    kind:"ph_plus",
+    unit:"g",
+    dosePerStep02:660,
+    stepUnit:"0,2 pH",
+    doseText:"≈ 660 g pour augmenter le pH de 0,2 sur 44 m³.",
+    method:"Filtration en marche, sans baigneurs. Répartir dans le bassin ou devant les refoulements selon notice. Correction par tranches."
+  },
+  acti_ph_minus_poudre: {
+    name:"ACTI pH Minus poudre",
+    kind:"ph_minus",
+    unit:"g",
+    dosePerStep02:660,
+    stepUnit:"0,2 pH",
+    doseText:"≈ 660 g pour baisser le pH de 0,2 sur 44 m³.",
+    method:"Filtration en marche, sans baigneurs. Répartir progressivement. Attendre au moins 2 h avant recontrôle."
+  },
+  acti_ph_minus_liquide35: {
+    name:"ACTI pH Minus liquide 35",
+    kind:"ph_minus",
+    unit:"ml",
+    dosePerStep02:660,
+    stepUnit:"0,2 pH",
+    doseText:"≈ 660 ml pour baisser le pH de 0,2 sur 44 m³.",
+    method:"Produit liquide concentré : vérifier usage et concentration. Avec votre installation, privilégier la pompe doseuse si prévue."
+  },
+  bayrol_ph_minus_poudre: {
+    name:"BAYROL pH-Minus poudre",
+    kind:"ph_minus",
+    unit:"g",
+    dosePerStep01:440,
+    stepUnit:"0,1 pH",
+    doseText:"≈ 440 g pour -0,1 pH ; ≈ 880 g pour -0,2 pH sur 44 m³.",
+    method:"Filtration en marche. Verser directement dans le bassin devant les buses de refoulement selon notice. Ne pas verser dans le skimmer."
+  },
+  bayrol_ph_minus_liquide_domestic: {
+    name:"BAYROL pH-Minus liquide Domestic Anti Calc",
+    kind:"ph_minus",
+    unit:"L",
+    dosePerStep01:1.32,
+    stepUnit:"0,1 pH",
+    doseText:"≈ 1,32 L pour -0,1 pH ; ≈ 2,64 L pour -0,2 pH sur 44 m³.",
+    method:"Produit destiné à une injection par pompe doseuse sur le circuit. Ne pas improviser un versement manuel."
+  },
+  acti_chlore_lent_galet: {
+    name:"ACTI chlore lent galet 200/250 g",
+    kind:"chlore",
+    doseText:"≈ 2 galets pour 44 m³ tous les 7 à 10 jours, à adapter aux mesures.",
+    method:"À utiliser seulement si TAC et pH sont corrects. Surveiller stabilisant CYA."
+  },
+  acti_chlore_choc_granules: {
+    name:"ACTI chlore choc / HP granulés",
+    kind:"chlore_choc",
+    doseText:"≈ 660 g pour 44 m³ en mise en service ou traitement choc.",
+    method:"À dissoudre ou disperser selon notice. Jamais avec acide/pH moins. Seulement si pH correct."
+  },
+  acti_anticalcaire: {
+    name:"ACTI anti-calcaire piscine",
+    kind:"anticalcaire",
+    doseText:"≈ 2,2 L pour 44 m³, à raisonner selon TH, traces blanches, chaleur et appoints.",
+    method:"Répartir dans le bassin selon notice, filtration en marche. À programmer périodiquement en eau dure."
+  },
+  acti_floc_chaussette: {
+    name:"ACTI floculant chaussette",
+    kind:"floc",
+    doseText:"1 à 2 chaussettes pour 44 m³, pH corrigé avant floculation.",
+    method:"Après lavage du filtre, placer selon notice. Surveiller filtre à verre et prévoir backwash si besoin."
+  },
+  acti_floc_liquide: {
+    name:"ACTI floculant liquide ponctuel",
+    kind:"floc_liquide",
+    doseText:"≈ 0,88 L pour 44 m³, uniquement ponctuel dans votre installation.",
+    method:"À éviter en routine. Risque de colmatage et aspiration par bonde de fond. Utiliser seulement avec surveillance."
+  },
+  unknown: {
+    name:"Autre produit",
+    kind:"unknown",
+    doseText:"Dosage impossible sans étiquette.",
+    method:"Renseigner la dose notice ou ajouter une photo de l’étiquette."
+  }
+};
+
+function val(id){ return parseFloat(document.getElementById(id).value); }
+function txt(id){ return document.getElementById(id).value; }
+function fmt(x, unit=""){ 
+  if (Number.isNaN(x)) return "—";
+  let n = Math.round(x*100)/100;
+  return String(n).replace(".",",") + unit;
+}
+
+function showTab(id,btn){
+  document.querySelectorAll(".screen").forEach(s=>s.classList.add("hidden"));
+  document.getElementById(id).classList.remove("hidden");
+  document.querySelectorAll(".nav button").forEach(b=>b.classList.remove("active"));
+  btn.classList.add("active");
+}
+
+function card(type, title, html, tags=[]){
+  const t = tags.map(tag=>{
+    let cls = "";
+    if(tag.includes("bloqué") || tag.includes("urgent")) cls="red";
+    if(tag.includes("surveiller") || tag.includes("attendre") || tag.includes("priorité")) cls="orange";
+    if(tag.includes("OK")) cls="green";
+    return `<span class="tag ${cls}">${tag}</span>`;
+  }).join("");
+  return `<div class="alert ${type}">
+    <h3>${title}</h3>
+    ${html}
+    ${tags.length ? `<div class="tagline">${t}</div>` : ""}
+  </div>`;
+}
+
+function selectedProductForPriority(priority, ph){
+  const selected = txt("product");
+  if(selected !== "auto") return PRODUCTS[selected];
+  if(priority === "ph"){
+    return ph > 7.4 ? PRODUCTS.acti_ph_minus_poudre : PRODUCTS.acti_ph_plus_poudre;
+  }
+  if(priority === "chlore") return PRODUCTS.acti_chlore_lent_galet;
+  if(priority === "calcaire") return PRODUCTS.acti_anticalcaire;
+  if(priority === "floc") return PRODUCTS.acti_floc_chaussette;
+  if(priority === "tac") return PRODUCTS.unknown;
+  return PRODUCTS.auto;
+}
+
+function doseForProduct(product){
+  const phStep = parseFloat(txt("phStep"));
+  if(product.dosePerStep02){
+    const multiplier = phStep / 0.2;
+    const dose = product.dosePerStep02 * multiplier;
+    return `<p><b>Dose calculée :</b> environ ${fmt(dose, " " + product.unit)} pour une correction de ${String(phStep).replace(".",",")} pH.</p>`;
+  }
+  if(product.dosePerStep01){
+    const multiplier = phStep / 0.1;
+    const dose = product.dosePerStep01 * multiplier;
+    return `<p><b>Dose calculée :</b> environ ${fmt(dose, " " + product.unit)} pour une correction de ${String(phStep).replace(".",",")} pH.</p>`;
+  }
+  return `<p><b>Dose :</b> ${product.doseText}</p>`;
+}
+
+function productBlock(product, priority){
+  return `<hr>
+    <p><b>Produit retenu :</b> ${product.name}.</p>
+    ${doseForProduct(product)}
+    <p><b>Base produit :</b> ${product.doseText}</p>
+    <p><b>Mode d’emploi :</b> ${product.method}</p>
+    <p><b>Consigne générale :</b> filtration en marche, aucun baigneur, correction progressive, ne jamais mélanger deux produits.</p>
+    ${priority === "ph" ? `<p><b>Bac tampon :</b> ne pas verser manuellement un produit concentré dans le bac tampon, sauf consigne technique explicite. Préférer le bassin devant les refoulements, ou la pompe doseuse si c’est prévu.</p>` : ""}
+  `;
+}
+
+function updateSteps(states){
+  document.getElementById("orderSteps").innerHTML = `
+  <div class="step"><div class="num">1</div><div><b>Bac tampon & circulation</b><span>Pompes, débordement, filtre à verre</span></div><div class="status-pill ${states.bac.cls}">${states.bac.txt}</div></div>
+  <div class="step"><div class="num">2</div><div><b>TAC</b><span>Cible 80-120 mg/L</span></div><div class="status-pill ${states.tac.cls}">${states.tac.txt}</div></div>
+  <div class="step"><div class="num">3</div><div><b>pH</b><span>Cible 7,2-7,4</span></div><div class="status-pill ${states.ph.cls}">${states.ph.txt}</div></div>
+  <div class="step"><div class="num">4</div><div><b>Chlore</b><span>Cible 1-3 mg/L, selon stabilisant</span></div><div class="status-pill ${states.chlore.cls}">${states.chlore.txt}</div></div>
+  <div class="step"><div class="num">5</div><div><b>TH / anti-calcaire</b><span>Eau dure, appoints, chaleur</span></div><div class="status-pill ${states.th.cls}">${states.th.txt}</div></div>`;
+}
+
+function analysePiscine(){
+  const tac = val("tac");
+  const ph = val("ph");
+  const chlore = val("chlore");
+  const cya = val("cya");
+  const th = val("th");
+  const tempEau = val("tempEau");
+  const tempExt = val("tempExt");
+  const bac = txt("bac");
+  const pumps = txt("pumps");
+  const cover = txt("cover");
+  const aspect = txt("aspect");
+  const phAuto = txt("phAuto");
+  const selectedProduct = PRODUCTS[txt("product")];
+
+  document.getElementById("dashPh").textContent = fmt(ph);
+  document.getElementById("dashChlore").textContent = fmt(chlore);
+  document.getElementById("dashTac").textContent = fmt(tac);
+  document.getElementById("dashCya").textContent = fmt(cya);
+  document.getElementById("dashTh").textContent = fmt(th);
+  document.getElementById("dashTemp").textContent = fmt(tempEau,"°");
+
+  let cards = [];
+  let headline = "Eau sous contrôle";
+  let sub = "Aucune priorité majeure détectée.";
+  let blockedAt = null;
+  let states = {
+    bac:{txt:"OK",cls:""},
+    tac:{txt:"OK",cls:""},
+    ph:{txt:"OK",cls:""},
+    chlore:{txt:"OK",cls:""},
+    th:{txt:"Surveiller",cls:"wait"}
+  };
+
+  if(bac === "Bas" || pumps === "Arrêt"){
+    blockedAt = "hydraulique";
+    states.bac = {txt:"Priorité",cls:"lock"};
+    states.tac = {txt:"Attendre",cls:"wait"};
+    states.ph = {txt:"Bloqué",cls:"lock"};
+    states.chlore = {txt:"Bloqué",cls:"lock"};
+    headline = "Priorité : circulation";
+    sub = "Avant la chimie, sécuriser bac tampon et pompes.";
+    cards.push(card("red","Priorité 1 — Bac tampon / circulation",
+      `<p><b>État :</b> bac tampon ${bac}, pompes : ${pumps}.</p>
+       <p><b>Bonne norme :</b> bac tampon au niveau correct, au moins une pompe active pour une piscine à débordement.</p>
+       <p><b>Action :</b> corriger le niveau ou relancer la filtration avant toute interprétation chimique.</p>`,
+      ["urgent", "actions chimiques bloquées"]));
+  } else {
+    cards.push(card("green","Priorité 1 — Circulation validée",
+      `<p><b>Bac tampon :</b> ${bac}. <b>Pompes :</b> ${pumps}.</p>
+       <p>La mesure peut être interprétée si l’eau a suffisamment circulé.</p>`,
+      ["OK"]));
+  }
+
+  if(!blockedAt){
+    if(tac < 80 || tac > 120){
+      blockedAt = "tac";
+      states.tac = {txt:"Priorité",cls:"lock"};
+      states.ph = {txt:"Après TAC",cls:"wait"};
+      states.chlore = {txt:"Bloqué",cls:"lock"};
+      headline = "Priorité : TAC";
+      sub = "Le pH ne sera pas stable tant que le TAC n’est pas corrigé.";
+      const direction = tac < 80 ? "trop bas" : "trop haut";
+      const tacAction = tac < 80 ? "TAC Plus à prévoir, mais dosage à confirmer avec l’étiquette." : "ne pas corriger brutalement ; stratégie progressive selon produit, pH et renouvellement d’eau.";
+      cards.push(card("red","Priorité 2 — TAC hors norme",
+        `<p><b>Valeur mesurée :</b> ${fmt(tac)} mg/L.</p>
+         <p><b>Bonne norme :</b> 80 à 120 mg/L.</p>
+         <p><b>Lecture :</b> TAC ${direction}. Le pH risque d’être instable.</p>
+         <p><b>Action :</b> ${tacAction}</p>
+         <p><b>Dosage :</b> base produit TAC non intégrée pour l’instant ; il faudra l’étiquette exacte.</p>`,
+        ["priorité", "pH différé", "chlore bloqué"]));
+    } else {
+      cards.push(card("green","Priorité 2 — TAC correct",
+        `<p><b>Valeur mesurée :</b> ${fmt(tac)} mg/L.</p>
+         <p><b>Bonne norme :</b> 80 à 120 mg/L.</p>
+         <p>Le pH peut maintenant être interprété.</p>`,
+        ["OK"]));
+    }
+  }
+
+  if(!blockedAt){
+    if(ph < 7.2 || ph > 7.4){
+      blockedAt = "ph";
+      states.ph = {txt:"Priorité",cls:"lock"};
+      states.chlore = {txt:"Bloqué",cls:"lock"};
+      headline = "Priorité : pH";
+      sub = "Le chlore ne doit pas être ajusté tant que le pH n’est pas dans la bonne zone.";
+      const low = ph < 7.2;
+      const product = selectedProduct.kind === "auto" ? selectedProductForPriority("ph", ph) : selectedProduct;
+      const direction = low ? "pH trop bas" : "pH trop haut";
+      const wanted = low ? "remonter progressivement le pH." : "baisser progressivement le pH.";
+      let auto = phAuto !== "Active"
+        ? `<p><b>Régulation automatique :</b> ${phAuto}. Vérifier ce point avant correction manuelle.</p>`
+        : `<p><b>Régulation automatique :</b> active. Si l’écart persiste, vérifier bidon pH liquide, sonde, TAC et temps de filtration.</p>`;
+      cards.push(card("red",`Priorité 3 — ${direction}`,
+        `<p><b>Valeur mesurée :</b> pH ${fmt(ph)}.</p>
+         <p><b>Bonne norme :</b> cible 7,2 à 7,4 ; acceptable environ 7,0 à 7,6.</p>
+         <p><b>Action :</b> ${wanted}</p>
+         ${auto}
+         ${productBlock(product, "ph")}`,
+        ["priorité", "chlore bloqué"]));
+    } else {
+      cards.push(card("green","Priorité 3 — pH correct",
+        `<p><b>Valeur mesurée :</b> pH ${fmt(ph)}.</p>
+         <p><b>Bonne norme :</b> 7,2 à 7,4.</p>
+         <p>Le chlore peut maintenant être interprété.</p>`,
+        ["OK"]));
+    }
+  } else if(blockedAt === "tac"){
+    cards.push(card("orange","pH — Action différée",
+      `<p><b>Valeur mesurée :</b> pH ${fmt(ph)}.</p>
+       <p><b>Bonne norme :</b> 7,2 à 7,4.</p>
+       <p><b>Décision :</b> ne pas corriger le pH maintenant, car le TAC n’est pas dans la bonne zone.</p>`,
+      ["attendre", "ordre respecté"]));
+  }
+
+  if(!blockedAt){
+    const chloreBad = chlore < 1 || chlore > 3;
+    const cyaHigh = cya > 50;
+    if(chloreBad || cyaHigh){
+      states.chlore = {txt:"À ajuster",cls:"wait"};
+      if(chloreBad){
+        headline = headline === "Eau sous contrôle" ? "Chlore à ajuster" : headline;
+        sub = headline === "Chlore à ajuster" ? "TAC et pH sont corrects : le chlore devient interprétable." : sub;
+      }
+      const product = selectedProduct.kind === "auto" ? selectedProductForPriority("chlore", ph) : selectedProduct;
+      cards.push(card(chloreBad ? "orange" : "blue","Priorité 4 — Chlore / stabilisant",
+        `<p><b>Chlore libre mesuré :</b> ${fmt(chlore)} mg/L.</p>
+         <p><b>Bonne norme indicative :</b> 1 à 3 mg/L, à interpréter avec le stabilisant et le produit utilisé.</p>
+         <p><b>Stabilisant CYA :</b> ${fmt(cya)} mg/L. Cible pratique : environ 30 à 50 mg/L.</p>
+         <p><b>Action :</b> ${chlore < 1 ? "chlore bas : ajuster les galets ou le traitement, seulement parce que TAC et pH sont validés." : chlore > 3 ? "chlore élevé : ne pas rajouter de chlore, surveiller et laisser redescendre." : "chlore correct mais stabilisant à surveiller."}</p>
+         ${product.kind.includes("chlore") || product.kind === "auto" ? productBlock(product, "chlore") : `<p><b>Produit choisi :</b> ${product.name}. Attention, ce produit ne correspond pas directement à une correction chlore.</p>`}`,
+        chloreBad ? ["surveiller"] : ["OK"]));
+    } else {
+      cards.push(card("green","Priorité 4 — Chlore cohérent",
+        `<p><b>Chlore libre :</b> ${fmt(chlore)} mg/L.</p>
+         <p><b>Bonne norme indicative :</b> 1 à 3 mg/L.</p>
+         <p><b>Stabilisant :</b> ${fmt(cya)} mg/L, cohérent pour une lecture courante.</p>`,
+        ["OK"]));
+    }
+  } else {
+    cards.push(card("orange","Chlore — Action bloquée",
+      `<p><b>Valeur mesurée :</b> ${fmt(chlore)} mg/L.</p>
+       <p><b>Bonne norme indicative :</b> 1 à 3 mg/L, selon stabilisant.</p>
+       <p><b>Décision :</b> ne pas ajuster le chlore tant que les étapes précédentes ne sont pas validées.</p>`,
+      ["bloqué", "ordre respecté"]));
+  }
+
+  if(th > 30){
+    states.th = {txt:"À surveiller",cls:"wait"};
+    const product = selectedProduct.kind === "auto" ? selectedProductForPriority("calcaire", ph) : selectedProduct;
+    cards.push(card("orange","Priorité 5 — TH / anti-calcaire",
+      `<p><b>Valeur mesurée :</b> ${fmt(th)}.</p>
+       <p><b>Bonne lecture :</b> avec l’eau dure de Nice, le TH doit être suivi régulièrement, surtout avec chaleur et appoints d’eau.</p>
+       <p><b>Action :</b> prévoir anti-calcaire selon traces blanches, pompe à chaleur, volume d’appoint et fréquence de remplissage.</p>
+       ${product.kind === "anticalcaire" || txt("product") === "auto" ? productBlock(product, "calcaire") : `<p><b>Produit choisi :</b> ${product.name}. Ce n’est pas un anti-calcaire ; dosage anti-calcaire non calculé.</p>`}`,
+      ["surveiller"]));
+  } else {
+    states.th = {txt:"OK",cls:""};
+  }
+
+  if(tempEau >= 29 || tempExt >= 32 || cover === "Non"){
+    cards.push(card("blue","Conditions du jour",
+      `<p><b>Température eau :</b> ${fmt(tempEau,"°C")}. <b>Température extérieure :</b> ${fmt(tempExt,"°C")}.</p>
+       <p><b>Couverture à bulles hier :</b> ${cover}.</p>
+       <p><b>Conséquence :</b> ajuster filtration et remplissage du bac tampon selon chaleur, vent et évaporation.</p>`,
+      ["surveiller"]));
+  }
+
+  if(aspect !== "Claire"){
+    const product = selectedProduct.kind === "auto" ? selectedProductForPriority("floc", ph) : selectedProduct;
+    cards.push(card("orange","Limpidité",
+      `<p><b>Aspect :</b> eau ${aspect.toLowerCase()}.</p>
+       <p><b>Action :</b> vérifier backwash, robot, durée de filtration, floculant solide.</p>
+       ${product.kind === "floc" || product.kind === "floc_liquide" || txt("product") === "auto" ? productBlock(product, "floc") : `<p><b>Produit choisi :</b> ${product.name}. Ce n’est pas le produit prioritaire pour la limpidité.</p>`}`,
+      ["surveiller"]));
+  }
+
+  if(!blockedAt && headline === "Eau sous contrôle" && aspect === "Claire"){
+    cards.unshift(card("green","Synthèse — Eau équilibrée",
+      `<p>TAC, pH et chlore sont dans une zone cohérente.</p>
+       <p>Continuer l’entretien courant : filtration adaptée à la température, niveau du bac tampon, backwash, galets et surveillance calcaire.</p>`,
+      ["OK"]));
+  }
+
+  document.getElementById("analysisList").innerHTML = cards.join("");
+  document.getElementById("mainPriority").outerHTML = `<div id="mainPriority" class="alert ${blockedAt ? "red" : (headline === "Eau sous contrôle" ? "green" : "orange")}">
+    <h3>${headline}</h3><p>${sub}</p>
+  </div>`;
+  document.getElementById("headline").textContent = headline;
+  document.getElementById("headlineSub").textContent = sub;
+
+  updateSteps(states);
+
+  localStorage.setItem("piscineControlV3", JSON.stringify({
+    tac, ph, chlore, cya, th, tempEau, tempExt, bac, pumps, cover, aspect, phAuto,
+    product:txt("product"), phStep:txt("phStep"), mode:txt("mode"),
+    date:new Date().toISOString()
+  }));
+
+  showTab("analysis", document.querySelectorAll(".nav button")[2]);
+}
+
+(function restore(){
+  const saved = localStorage.getItem("piscineControlV3");
+  if(!saved) return;
+  try{
+    const x = JSON.parse(saved);
+    ["tac","ph","chlore","cya","th","tempEau","tempExt"].forEach(id=>{
+      if(x[id] !== undefined) document.getElementById(id).value = x[id];
+    });
+    ["bac","pumps","cover","aspect","phAuto","product","phStep","mode"].forEach(id=>{
+      if(x[id]) document.getElementById(id).value = x[id];
+    });
+    document.getElementById("dashPh").textContent = fmt(x.ph);
+    document.getElementById("dashChlore").textContent = fmt(x.chlore);
+    document.getElementById("dashTac").textContent = fmt(x.tac);
+    document.getElementById("dashCya").textContent = fmt(x.cya);
+    document.getElementById("dashTh").textContent = fmt(x.th);
+    document.getElementById("dashTemp").textContent = fmt(x.tempEau,"°");
+  }catch(e){}
+})();
+</script>
+
+</body>
+</html>
